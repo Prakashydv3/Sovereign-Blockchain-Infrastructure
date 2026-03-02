@@ -1,96 +1,58 @@
 # Node Build Procedure
 
-## Objective
-Reconstruct blockchain runtime environment from zero state and verify binary compilation integrity.
+**DAY 1 - Task a: Environment Reconstruction**
 
-## Environment Details
-- **Operating System**: Windows
-- **Blockchain**: go-ethereum (Geth)
-- **Build Tool**: Go toolchain
-- **Repository Path**: `d:\Go Lang\MP\Task5\go-ethereum`
+## What You Did
 
-## Build Procedure
+You built the Geth blockchain node from source code.
 
-### 1. Repository Verification
-```
-Repository: go-ethereum
-Location: d:\Go Lang\MP\Task5\go-ethereum
-Status: Cloned and verified
-```
+## Commands You Ran
 
-### 2. Dependency Installation
-```bash
-# Verify Go installation
-go version
-
-# Expected: go version go1.21+ windows/amd64
-```
-
-### 3. Binary Compilation
+### 1. Navigate to go-ethereum folder
 ```bash
 cd d:\Go Lang\MP\Task5\go-ethereum
-make geth
 ```
 
-**Alternative Windows Build**:
+### 2. Build the Geth binary
 ```bash
-go build -o build/bin/geth.exe ./cmd/geth
+go build -o build\bin\geth.exe .\cmd\geth
 ```
 
-### 4. Build Verification
+### 3. Verify the build worked
 ```bash
-# Verify binary exists
-dir build\bin\geth.exe
-
-# Verify binary execution
 .\build\bin\geth.exe version
 ```
 
-### 5. Expected Build Output
+**Expected Output:**
 ```
-Binary: geth.exe
-Location: build/bin/geth.exe
-Size: ~50-80 MB
-Architecture: windows/amd64
+Geth
+Version: 1.13.x-stable
+Architecture: amd64
+Go Version: go1.21.x
+Operating System: windows
 ```
 
-## Build Success Criteria
-- ✓ Binary compiles without errors
-- ✓ Binary is executable
-- ✓ Version command returns valid output
-- ✓ No dependency conflicts
-
-## Node Initialization Command
+### 4. Start the node in dev mode
 ```bash
-# Initialize with genesis
-.\build\bin\geth.exe init genesis.json --datadir ./node-data
-
-# Start node
-.\build\bin\geth.exe --datadir ./node-data --networkid 1337 --http --http.api eth,net,web3 --nodiscover
+.\build\bin\geth.exe --datadir .\node-data --dev --http --http.api eth,net,web3
 ```
 
-## Build Proof
-- **Build Date**: 2024
-- **Compilation Status**: SUCCESS
-- **Binary Hash**: Deterministic per Go version
-- **Execution Test**: PASSED
+**What this does:**
+- `--datadir .\node-data` = Store blockchain data here
+- `--dev` = Developer mode (instant block mining)
+- `--http` = Enable HTTP-RPC server
+- `--http.api eth,net,web3` = Enable these APIs
 
-## Safety Verification
-- No consensus logic modified
-- No validation logic modified
-- No token logic modified
-- Build process is read-only operation
-- Binary is unmodified from source
+## Terminal Log Required for Submission
 
-## Reconstruction Capability
-This procedure enables complete environment reconstruction from:
-1. Clean repository clone
-2. Standard Go toolchain
-3. No external dependencies beyond Go modules
-4. Deterministic build output
+**Save this output to a file:**
+```bash
+.\build\bin\geth.exe version > build-proof.txt
+```
 
-## Operational Readiness
-- Node binary: READY
-- Runtime environment: CONFIGURED
-- Execution capability: VERIFIED
-- Restart safety: PENDING VERIFICATION (see restart-determinism-report.md)
+This proves you successfully built the node.
+
+## What This Proves
+✓ You can build blockchain node from source
+✓ Binary is executable
+✓ Node can start successfully
